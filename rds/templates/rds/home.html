@@ -1,0 +1,76 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>RDS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static '/rds/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static '/rds/css/signin.css' %}" rel="stylesheet">
+    
+     <!-- Resultado do arquivo -->
+    <link href="{% static '/rds/css/footer.css' %}" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+{% if controle == 0 %}
+      <form method='POST' enctype='multipart/form-data' class="form-signin">
+          {% csrf_token %}
+        <h2 class="form-signin-heading">Escolha o sintegra</h2>
+        <label> {{ form }} {{ form.errors }}</label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+      </form>
+    </div>
+{% endif %}
+{% if controle == 1 %}
+      <div align='center'>
+        
+           <label><p>Foram checadas {{ check }} linhas. {{ D1 }} D1's foram removidas.
+                Consulte o arquivo de log para visualizar as D1's removidas.</p></label>
+                <strong><p><a href="{% static '/rds/Sintegra.txt' %}">Baixe o arquivo</a></p></strong>
+      </div>
+      <div class='container'>
+      <form method="POST" enctype="multipart/form-data" class="form-signin">
+          {% csrf_token %}
+        <h2 class="form-signin-heading">Escolha o sintegra</h2>
+        <label> {{ form }} {{ form.errors }}</label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+      </form>
+      </div> <!-- /container -->
+{% endif %}
+{% if controle == 2 %}
+<div align='center'>
+        
+           <label><p>O arquivo carregado não necessita alterações ou não é um Sintegra.</p></label>
+      </div>
+      <div class='container'>
+      <form method="POST" enctype="multipart/form-data" class="form-signin">
+          {% csrf_token %}
+        <h2 class="form-signin-heading">Escolha o sintegra</h2>
+        <label> {{ form }} {{ form.errors }}</label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+      </form>
+      </div> <!-- /container -->
+{% endif %}
+    
+
+
+  </body>
+  <footer>
+    Copyright © 2016 3 IDEIAS | Powered by Thiago Rodrigues Oliveira<br>
+    Todos os direitos reservados
+  </footer>
+</html>
