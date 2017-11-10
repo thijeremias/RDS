@@ -212,7 +212,7 @@ def home(request):
                 os.remove('ultimo.txt')
                 
             for linha in f: #o for tira os registro 50 do sintegra criando um novo arquivo que posteriormente passara pela função reg74()
-                if linha.decode('ascii')[0:2] == '50' and linha.decode('ascii')[40:43] == '011' and linha.decode('ascii')[55] == 'P':
+                if linha.decode('ascii')[0:2] == '50' and linha.decode('ascii')[40:44] == '01D1' and linha.decode('ascii')[55] == 'P':
                     with open('log.txt', 'a') as log:
                         log.write(linha.decode('ascii'))
                 else:
