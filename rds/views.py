@@ -198,6 +198,8 @@ def home(request):
             
             if os.path.exists("/home/ubuntu/workspace/rds/static/rds/Sintegra.txt"):#verifico se ja existe um sintegra e apago
                 os.remove('/home/ubuntu/workspace/rds/static/rds/Sintegra.txt')
+            if os.path.exists("/home/ubuntu/workspace/static/rds/Sintegra.txt"):#verifico se ja existe um sintegra e apago
+                os.remove('/home/ubuntu/workspace/static/rds/Sintegra.txt')
             if os.path.exists("/home/ubuntu/workspace/new_sintegra.txt"):
                 os.remove('new_sintegra.txt')
             if os.path.exists("/home/ubuntu/workspace/log.txt"): #verifico se ja exite um log e apago
@@ -235,6 +237,7 @@ def home(request):
             context['form'] = UploadFileForm()
         if context['controle'] == 1:
             copyfile('/home/ubuntu/workspace/ultimo.txt', '/home/ubuntu/workspace/rds/static/rds/Sintegra.txt')#copio o novo sintegra para a pasta static para que o usuario possa fazer download
+            copyfile('/home/ubuntu/workspace/ultimo.txt', '/home/ubuntu/workspace/static/rds/Sintegra.txt')#copio o novo sintegra para a pasta static para que o usuario possa fazer download
             converte()#depois de copiado o arquivo é convertido para windows conforme descrição na função
         return render(request, 'rds/home.html', context)
     else:
