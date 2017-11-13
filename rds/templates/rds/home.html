@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -40,7 +40,7 @@
         
            <label><p>Foram checadas {{ check }} linhas. {{ D1 }} D1's foram removidas.
                 Consulte o arquivo de log para visualizar as D1's removidas.</p></label>
-                <strong><p><a href="{% static '/rds/Sintegra.txt' %}">Baixe o arquivo</a></p></strong>
+                <strong><p><a href="{% static 'rds/Sintegra.txt' %}">Baixe o arquivo</a></p></strong>
       </div>
       <div class='container'>
       <form method="POST" enctype="multipart/form-data" class="form-signin">

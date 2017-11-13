@@ -1,6 +1,7 @@
 #-*-coding: utf8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from .forms import UploadFileForm
 from django.core.files.uploadedfile import UploadedFile
 #import csv
@@ -9,8 +10,8 @@ from io import TextIOWrapper, BytesIO
 from shutil import copyfile
 
 def converte():#função para converter aquivos de texto linux para windows
-    if os.path.exists("/home/ubuntu/workspace/rds/static/rds/Sintegra.txt"):#verificar caminhos no deploy
-        subprocess.call('unix2dos /home/ubuntu/workspace/rds/static/rds/Sintegra.txt', shell = True)#verificar caminhos no deploy
+    if os.path.exists("/home/ubuntu/workspace/ultimo.txt"):#verificar caminhos no deploy
+        subprocess.call('unix2dos /home/ubuntu/workspace/ultimo.txt', shell = True)#verificar caminhos no deploy
 
 #função para retornar os números das notas retirados no registro 50 #validada
 def reg54():
@@ -196,10 +197,10 @@ def home(request):
             f = request.FILES['arquivo']
             context['check'] = len(f.readlines())
             
-            if os.path.exists("/home/ubuntu/workspace/rds/static/rds/Sintegra.txt"):#verifico se ja existe um sintegra e apago
-                os.remove('/home/ubuntu/workspace/rds/static/rds/Sintegra.txt')
-            if os.path.exists("/home/ubuntu/workspace/static/rds/Sintegra.txt"):#verifico se ja existe um sintegra e apago
-                os.remove('/home/ubuntu/workspace/static/rds/Sintegra.txt')
+            #if os.path.exists("/home/ubuntu/workspace/rds/static/rds/Sintegra.txt"):#verifico se ja existe um sintegra e apago
+            #    os.remove('/home/ubuntu/workspace/rds/static/rds/Sintegra.txt')
+            #if os.path.exists("/home/ubuntu/workspace/static/rds/Sintegra.txt"):#verifico se ja existe um sintegra e apago
+            #    os.remove('/home/ubuntu/workspace/static/rds/Sintegra.txt')
             if os.path.exists("/home/ubuntu/workspace/new_sintegra.txt"):
                 os.remove('new_sintegra.txt')
             if os.path.exists("/home/ubuntu/workspace/log.txt"): #verifico se ja exite um log e apago
@@ -236,10 +237,12 @@ def home(request):
                 pass
             context['form'] = UploadFileForm()
         if context['controle'] == 1:
-            copyfile('/home/ubuntu/workspace/ultimo.txt', '/home/ubuntu/workspace/rds/static/rds/Sintegra.txt')#copio o novo sintegra para a pasta static para que o usuario possa fazer download
-            copyfile('/home/ubuntu/workspace/ultimo.txt', '/home/ubuntu/workspace/static/rds/Sintegra.txt')#copio o novo sintegra para a pasta static para que o usuario possa fazer download
+            #copyfile('/home/ubuntu/workspace/ultimo.txt', '/home/ubuntu/workspace/rds/static/rds/Sintegra.txt')#copio o novo sintegra para a pasta static para que o usuario possa fazer download
             converte()#depois de copiado o arquivo é convertido para windows conforme descrição na função
-        return render(request, 'rds/home.html', context)
+        #return render(request, 'rds/home.html', context)
+        response = HttpResponse(open('ultimo.txt', 'r').read())
+        response['Content-Disposition'] = 'attachment; filename="sintegra.txt"'
+        return response
     else:
         context['controle'] = 0
         context['form'] = UploadFileForm()
